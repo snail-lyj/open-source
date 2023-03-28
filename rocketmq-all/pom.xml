@@ -32,6 +32,33 @@
     </dependency>
   </dependencies>
 
+  <dependencyManagement>
+      <dependencies>
+        <dependency>
+          <groupId>org.snail.lyj</groupId>
+          <artifactId>rocketmq-remoting</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.snail.lyj</groupId>
+          <artifactId>rocketmq-logging</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+        <dependency>
+          <groupId>org.snail.lyj</groupId>
+          <artifactId>rocketmq-broker</artifactId>
+          <version>${project.version}</version>
+        </dependency>
+
+
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-api</artifactId>
+          <version>1.7.7</version>
+        </dependency>
+      </dependencies>
+  </dependencyManagement>
+
   <build>
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>

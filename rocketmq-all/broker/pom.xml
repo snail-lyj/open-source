@@ -11,5 +11,10 @@
 
     <artifactId>rocketmq-broker</artifactId>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.snail.lyj</groupId>
+            <artifactId>rocketmq-logging</artifactId>
+        </dependency>
+    </dependencies>
 </project>
