@@ -4,6 +4,7 @@ import com.snail.lyj.rocketmq.broker.configManager.ConfigManager;
 import com.snail.lyj.rocketmq.broker.configManager.DataVersion;
 import com.snail.lyj.rocketmq.logging.InternalLogger;
 import com.snail.lyj.rocketmq.logging.InternalLoggerFactory;
+import org.snail.lyj.rocketmq.remoting.protocol.RemotingSerializable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,13 +30,13 @@ public class SubscriptionGroupManager extends ConfigManager {
 
     private static final InternalLogger log = InternalLoggerFactory.getLogger("RocketmqBroker");
 
-    private final Map<String, SubscriptionGroupConfig> subscriptionGroupConfigTable = new HashMap<>();
+    private final Map<String, SubscriptionGroupConfig> subscriptionGroupTable = new HashMap<>();
 
     private final DataVersion dataVersion = new DataVersion();
 
 
     public SubscriptionGroupConfig findSubscriptionGroupConfig(final String groupName) {
-        SubscriptionGroupConfig subscriptionGroupConfig = subscriptionGroupConfigTable.get(groupName);
+        SubscriptionGroupConfig subscriptionGroupConfig = subscriptionGroupTable.get(groupName);
         if (subscriptionGroupConfig == null) {
             //todo 提供自动创建消费者组的能力
 
@@ -44,7 +45,7 @@ public class SubscriptionGroupManager extends ConfigManager {
     }
 
     public void updateSubscriptionGroupConfig(final SubscriptionGroupConfig config) {
-        SubscriptionGroupConfig pre = subscriptionGroupConfigTable.put(config.getGroupName(), config);
+        SubscriptionGroupConfig pre = subscriptionGroupTable.put(config.getGroupName(), config);
         if (pre == null) {
             // 新增
             log.info("create subscrition group config, {}", config);
@@ -60,7 +61,7 @@ public class SubscriptionGroupManager extends ConfigManager {
 
 
     public void deleteSubscriptionGroupConfig(final String groupName) {
-        SubscriptionGroupConfig config = subscriptionGroupConfigTable.remove(groupName);
+        SubscriptionGroupConfig config = subscriptionGroupTable.remove(groupName);
         if (config != null) {
             // 移除成功
             log.info("delete subscription group config success, subscription group: {}", config);
@@ -72,4 +73,38 @@ public class SubscriptionGroupManager extends ConfigManager {
         }
     }
 
+    @Override
+    public String getConfigFilePath() {
+        return null;
+    }
+
+    @Override
+    public String encode(boolean prettyFormat) {
+        return RemotingSerializable.toJson(this, prettyFormat);
+    }
+
+    @Override
+    public String encode() {
+        return this.encode(true);
+    }
+
+    @Override
+    public void decode(String str) {
+        if (str != null) {
+            SubscriptionGroupManager groupManager = RemotingSerializable.fromJson(str, SubscriptionGroupManager.class);
+            if (groupManager != null) {
+                this.subscriptionGroupTable.putAll(groupManager.getSubscriptionGroupTable());
+                this.dataVersion.assignNewOne(groupManager.dataVersion);
+            }
+        }
+    }
+
+
+    public Map<String, SubscriptionGroupConfig> getSubscriptionGroupTable() {
+        return subscriptionGroupTable;
+    }
+
+    public DataVersion getDataVersion() {
+        return dataVersion;
+    }
 }

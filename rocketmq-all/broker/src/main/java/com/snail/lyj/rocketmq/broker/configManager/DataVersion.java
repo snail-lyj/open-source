@@ -19,6 +19,15 @@ public class DataVersion {
         counter.incrementAndGet();
     }
 
+    /**
+     * 将dataVersion中的数据拷贝至当前对象
+     * @param dataVersion
+     */
+    public void assignNewOne(DataVersion dataVersion) {
+        this.timestamp = dataVersion.getTimestamp();
+        this.counter.set(dataVersion.getCounter().get());
+    }
+    
     public long getTimestamp() {
         return timestamp;
     }
@@ -34,4 +43,5 @@ public class DataVersion {
     public void setCounter(AtomicLong counter) {
         this.counter = counter;
     }
+
 }
