@@ -1,9 +1,12 @@
 package com.snail.lyj.rocketmq.broker.subscription;
 
+import lombok.Data;
+
 /**
  * @author liuyajie
  * @date 2023/03/28/12:45 下午
  */
+@Data
 public class SubscriptionGroupConfig {
 
     private String groupName;

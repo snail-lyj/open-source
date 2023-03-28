@@ -7,4 +7,13 @@ import org.snail.lyj.rocketmq.remoting.RemotingServer;
  * @date 2023/03/28/11:12 上午
  */
 public class NettyRemotingServer implements RemotingServer {
+    @Override
+    public void start() {
+
+    }
+
+    @Override
+    public void shutDown() {
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.snail.lyj.rocketmq.broker.configManager;
 
+import com.snail.lyj.rocketmq.broker.subscription.SubscriptionGroupManager;
 import com.snail.lyj.rocketmq.logging.InternalLogger;
 import com.snail.lyj.rocketmq.logging.InternalLoggerFactory;
 
@@ -20,7 +21,7 @@ public abstract class ConfigManager {
      *
      */
     public boolean load() {
-        String fileName = getConfigFilePath();
+        String fileName = configFilePath();
         String jsonString = null;
         try {
             jsonString = MixAll.file2String(fileName);
@@ -37,7 +38,7 @@ public abstract class ConfigManager {
     }
 
     private boolean loadBak() {
-        String fileName = getConfigFilePath();
+        String fileName = configFilePath();
         String jsonString = null;
         try {
             jsonString = MixAll.file2String(fileName + ".bak");
@@ -60,7 +61,7 @@ public abstract class ConfigManager {
         String jsonString = encode(true);
         // 2、持久化数据
         if (jsonString != null && jsonString.length() > 0) {
-            String filePath = getConfigFilePath();
+            String filePath = configFilePath();
             try {
                 MixAll.string2File(jsonString, filePath);
             } catch (IOException e) {
@@ -70,12 +71,11 @@ public abstract class ConfigManager {
 
     }
 
-    public abstract String getConfigFilePath();
+    public abstract String configFilePath();
 
     public abstract String encode(boolean prettyFormat);
 
     public abstract String encode();
 
     public abstract void decode(String str);
-
 }

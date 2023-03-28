@@ -1,5 +1,7 @@
 package com.snail.lyj.rocketmq.broker.subscription;
 
+import com.alibaba.fastjson.JSON;
+import com.snail.lyj.rocketmq.broker.BrokerPathConfigHelper;
 import com.snail.lyj.rocketmq.broker.configManager.ConfigManager;
 import com.snail.lyj.rocketmq.broker.configManager.DataVersion;
 import com.snail.lyj.rocketmq.logging.InternalLogger;
@@ -7,6 +9,7 @@ import com.snail.lyj.rocketmq.logging.InternalLoggerFactory;
 import org.snail.lyj.rocketmq.remoting.protocol.RemotingSerializable;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -30,7 +33,7 @@ public class SubscriptionGroupManager extends ConfigManager {
 
     private static final InternalLogger log = InternalLoggerFactory.getLogger("RocketmqBroker");
 
-    private final Map<String, SubscriptionGroupConfig> subscriptionGroupTable = new HashMap<>();
+    private final Map<String, SubscriptionGroupConfig> subscriptionGroupTable = new HashMap<>(1024);
 
     private final DataVersion dataVersion = new DataVersion();
 
@@ -74,12 +77,14 @@ public class SubscriptionGroupManager extends ConfigManager {
     }
 
     @Override
-    public String getConfigFilePath() {
-        return null;
+    public String configFilePath() {
+        String rootDir = ".";
+        return BrokerPathConfigHelper.getSubscriptionGroupPath(rootDir);
     }
 
     @Override
     public String encode(boolean prettyFormat) {
+        // 序列化是根据getter方法序列化的，只要有方法在，就会生成一个去掉get的属性
         return RemotingSerializable.toJson(this, prettyFormat);
     }
 
@@ -95,6 +100,7 @@ public class SubscriptionGroupManager extends ConfigManager {
             if (groupManager != null) {
                 this.subscriptionGroupTable.putAll(groupManager.getSubscriptionGroupTable());
                 this.dataVersion.assignNewOne(groupManager.dataVersion);
+                this.printLoadDataWhenFirstBoot(groupManager);
             }
         }
     }
@@ -106,5 +112,17 @@ public class SubscriptionGroupManager extends ConfigManager {
 
     public DataVersion getDataVersion() {
         return dataVersion;
+    }
+
+    /**
+     * 打印从文件中加载的数据
+     * @param sgm
+     */
+    private void printLoadDataWhenFirstBoot(SubscriptionGroupManager sgm) {
+        Iterator<Map.Entry<String, SubscriptionGroupConfig>> it = sgm.getSubscriptionGroupTable().entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry<String, SubscriptionGroupConfig> next = it.next();
+            log.info("load exist subscription group, {}", next.getValue().toString());
+        }
     }
 }
