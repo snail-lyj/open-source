@@ -78,4 +78,5 @@ public abstract class ConfigManager {
     public abstract String encode();
 
     public abstract void decode(String str);
+
 }
