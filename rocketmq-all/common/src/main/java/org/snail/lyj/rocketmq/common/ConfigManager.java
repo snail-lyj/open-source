@@ -1,6 +1,5 @@
-package com.snail.lyj.rocketmq.broker.configManager;
+package org.snail.lyj.rocketmq.common;
 
-import com.snail.lyj.rocketmq.broker.subscription.SubscriptionGroupManager;
 import com.snail.lyj.rocketmq.logging.InternalLogger;
 import com.snail.lyj.rocketmq.logging.InternalLoggerFactory;
 

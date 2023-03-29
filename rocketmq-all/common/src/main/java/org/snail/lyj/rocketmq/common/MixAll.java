@@ -1,10 +1,13 @@
-package com.snail.lyj.rocketmq.broker.configManager;
+package org.snail.lyj.rocketmq.common;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * @author liuyajie
- * @date 2023/03/28/2:40 下午
+ * @date 2023/03/29/7:32 下午
  */
 public class MixAll {
 
