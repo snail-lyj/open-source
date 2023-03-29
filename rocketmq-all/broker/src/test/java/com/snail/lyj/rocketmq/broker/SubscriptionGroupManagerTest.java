@@ -5,9 +5,8 @@ import com.snail.lyj.rocketmq.broker.subscription.SubscriptionGroupConfig;
 import com.snail.lyj.rocketmq.broker.subscription.SubscriptionGroupManager;
 
 /**
- * @author lyj
- * @date 3/28/23
- * @time 11:45 PM
+ * @author liuyajie
+ * @date 2023/03/29/7:54 下午
  */
 public class SubscriptionGroupManagerTest {
 

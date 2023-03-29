@@ -9,7 +9,20 @@ import java.io.IOException;
  * @author liuyajie
  * @date 2023/03/29/7:32 下午
  */
-public class MixAll {
+public class MixAll { 
+    public static final String DEFAULT_PRODUCER_GROUP = "DEFAULT_PRODUCER";
+    public static final String DEFAULT_CONSUMER_GROUP = "DEFAULT_CONSUMER";
+    public static final String TOOLS_CONSUMER_GROUP = "TOOLS_CONSUMER";
+    public static final String SCHEDULE_CONSUMER_GROUP = "SCHEDULE_CONSUMER";
+    public static final String FILTERSRV_CONSUMER_GROUP = "FILTERSRV_CONSUMER";
+    public static final String MONITOR_CONSUMER_GROUP = "__MONITOR_CONSUMER";
+    public static final String CLIENT_INNER_PRODUCER_GROUP = "CLIENT_INNER_PRODUCER";
+    public static final String SELF_TEST_PRODUCER_GROUP = "SELF_TEST_P_GROUP";
+    public static final String SELF_TEST_CONSUMER_GROUP = "SELF_TEST_C_GROUP";
+    public static final String ONS_HTTP_PROXY_GROUP = "CID_ONS-HTTP-PROXY";
+    public static final String CID_ONSAPI_PERMISSION_GROUP = "CID_ONSAPI_PERMISSION";
+    public static final String CID_ONSAPI_OWNER_GROUP = "CID_ONSAPI_OWNER";
+    public static final String CID_ONSAPI_PULL_GROUP = "CID_ONSAPI_PULL";
 
     /**
      * 将数据优雅写入文件。 引入临时文件、备份文件、目标文件

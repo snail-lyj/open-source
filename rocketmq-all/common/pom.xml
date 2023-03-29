@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>org.snail.lyj</groupId>
-            <artifactId>rocketmq-common</artifactId>
+            <artifactId>rocketmq-logging</artifactId>
         </dependency>
     </dependencies>
 

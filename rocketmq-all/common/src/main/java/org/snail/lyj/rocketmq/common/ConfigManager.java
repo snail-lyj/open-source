@@ -2,6 +2,7 @@ package org.snail.lyj.rocketmq.common;
 
 import com.snail.lyj.rocketmq.logging.InternalLogger;
 import com.snail.lyj.rocketmq.logging.InternalLoggerFactory;
+import org.snail.lyj.rocketmq.common.constant.LoggerName;
 
 import java.io.IOException;
 
@@ -11,7 +12,7 @@ import java.io.IOException;
  */
 public abstract class ConfigManager {
 
-    private static final InternalLogger log = InternalLoggerFactory.getLogger("RocketmqBroker");
+    private static final InternalLogger log = InternalLoggerFactory.getLogger(LoggerName.COMMON_LOGGER_NAME);
 
     /**
      * 数据加载
